@@ -1,0 +1,10 @@
+<movies>
+    <movie>
+        <title>lorem</title>
+        <year>lorem</year>
+        <genre>lorem</genre>
+        <director>lorem</director>
+        <summary>lorem</summary>
+        <poster>lorem</poster>
+    </movie>
+</movies>

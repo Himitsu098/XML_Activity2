@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Showcase - Netflix Style</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            background-color: #141414;
+            color: white;
+        }
+
+        .header {
+            background-color: #141414;
+            padding: 20px;
+            text-align: center;
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        .container {
+            display: flex;
+            overflow-x: auto;
+            padding: 20px;
+            gap: 20px;
+        }
+
+        .movie {
+            background-color: #333;
+            border-radius: 8px;
+            width: 250px;
+            overflow: hidden;
+            text-align: center;
+            padding: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .movie img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .movie-info {
+            padding: 10px;
+        }
+
+        .movie-info h3 {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .movie-info p {
+            font-size: 14px;
+            margin: 5px 0;
+            color: #aaa;
+        }
+
+        .movie-info .summary {
+            font-size: 12px;
+            color: #fff;
+            margin-top: 10px;
+        }
+
+        .footer {
+            background-color: #141414;
+            padding: 20px;
+            text-align: center;
+            font-size: 14px;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        Movie Showcase
+    </div>
+
+    <div class="container" id="movieContainer">
+        <!-- Movies will be dynamically inserted here -->
+    </div>
+
+    <div class="footer">
+        Created by You | Inspired by Netflix
+    </div>
+
+    <script>
+        const xmlData = `
+            <movies>
+                <movie>
+                    <title>Your Name</title>
+                    <year>2016</year>
+                    <genre>Animation, Romance, Drama</genre>
+                    <director>Makoto Shinkai</director>
+                    <summary>High schoolers Mitsuha and Taki are complete strangers living separate lives. But one night, they suddenly switch places. Mitsuha wakes up in Taki’s body, and he in hers. This bizarre occurrence continues to happen randomly, and the two must adjust their lives around each other.</summary>
+                    <poster>https://media.themoviedb.org/t/p/w300_and_h450_bestv2/q719jXXEzOoYaps6babgKnONONX.jpg</poster>
+                </movie>
+                <movie>
+                    <title>Spider-Man: Into the Spider-Verse</title>
+                    <year>2018</year>
+                    <genre>Animation, Action, Adventure</genre>
+                    <director>Bob Persichetti, Peter Ramsey, Rodney Rothman</director>
+                    <summary>Teenager Miles Morales becomes Spider-Man of his reality, crossing paths with five spider-powered individuals from other dimensions to stop a threat for all realities.</summary>
+                    <poster>https://media.themoviedb.org/t/p/w300_and_h450_bestv2/7Abt9mRbZKH6hUk35oszpR5kO6X.jpg</poster>
+                </movie>
+            </movies>
+        `;
+
+        function parseXML(xmlStr) {
+            const parser = new DOMParser();
+            const xmlDoc = parser.parseFromString(xmlStr, 'application/xml');
+            const movies = xmlDoc.getElementsByTagName('movie');
+            let movieHTML = '';
+            
+            for (let i = 0; i < movies.length; i++) {
+                const title = movies[i].getElementsByTagName('title')[0].childNodes[0].nodeValue;
+                const year = movies[i].getElementsByTagName('year')[0].childNodes[0].nodeValue;
+                const genre = movies[i].getElementsByTagName('genre')[0].childNodes[0].nodeValue;
+                const director = movies[i].getElementsByTagName('director')[0].childNodes[0].nodeValue;
+                const summary = movies[i].getElementsByTagName('summary')[0].childNodes[0].nodeValue;
+                const poster = movies[i].getElementsByTagName('poster')[0].childNodes[0].nodeValue;
+
+                movieHTML += `
+                    <div class="movie">
+                        <img src="${poster}" alt="${title}">
+                        <div class="movie-info">
+                            <h3>${title} (${year})</h3>
+                            <p><strong>Genre:</strong> ${genre}</p>
+                            <p><strong>Director:</strong> ${director}</p>
+                            <p class="summary">${summary}</p>
+                        </div>
+                    </div>
+                `;
+            }
+            return movieHTML;
+        }
+
+        document.getElementById('movieContainer').innerHTML = parseXML(xmlData);
+    </script>
+
+</body>
+</html>

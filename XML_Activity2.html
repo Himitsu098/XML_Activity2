@@ -1,73 +1,331 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Favorite Movies</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <style>
-        body {
-            background-color: #2c2828;
-            color: #ffffff;
-        }
-        .movies {
-            padding-top: 150px;
-            padding-bottom: 200px;
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>My Favorite Movies</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+        <style>
+            /* Basic Body Styles */
+            body {
+                background-color: #2c2828;
+                color: #ffffff;
+                margin: 0;
+            }
 
-        }
-        .movie-poster {
-            cursor: pointer;
-        }
-        #movieTable {
-            margin: 0 auto;
-        }
-        .movie-title {
-            font-weight: 700;
-        }
-        .movie-column {
-            display: flex;
-            flex-direction: column;
-            width: fit-content;
-            position: relative;
-            margin-top: 25px;
-        }
-        .movie-info {
-            display: none;
-            position: absolute;
-            bottom: 0;
-            background-color: #000000;
-            z-index: 10;
-        }
+            /* Hero Banner */
+            .hero-banner {
+                position: relative;
+                width: 100%;
+                height: 400px;
+                background: url('https://media.themoviedb.org/t/p/w300_and_h450_bestv2/q719jXXEzOoYaps6babgKnONONX.jpg');
+                background-position: center 22%;
+                background-repeat: no-repeat;
+                background-size: cover;
+            }
 
-        .movie-column:hover .movie-info {
-            display: block;
-        }
+            .hero-banner .overlay {
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0, 0, 0, 0.6); /* Overlay color */
+            }
 
-        tbody {
-            display: flex;
-            gap: 5%;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-        .movieTable > tbody img {
-            width: max-content !important;
-        }
-    </style>
-</head>
-<body>
-    <section class="movies container">
-        <table id="movieTable">
-            <tbody>
-                <!-- Movie rows will be inserted here by JavaScript -->
-            </tbody>
-        </table>
-    </section>
+            .hero-banner .title {
+                font-size: 3rem;
+                font-weight: bold;
+                color: white;
+            }
 
+            /* Movie Section */
+            .movies {
+                padding-top: 20px;
+                padding-bottom: 50px;
+                position: relative;
+                overflow: hidden;
+            }
+
+            .swiper-slide {
+                position: relative;
+                width: 200px;
+                overflow: visible;
+                cursor: pointer;
+            }
+
+            /* Movie Poster Style */
+            .swiper-slide img {
+                width: 100%;
+                height: auto;
+                transition: transform 0.3s ease;
+            }
+
+            /* Hover effect for movie poster */
+            .swiper-slide:hover img {
+                transform: scale(1.1);
+            }
+
+            /* Movie Info Popup */
+            .swiper-slide .movie-info {
+                display: none;
+                background-color: rgba(0, 0, 0, 0.8);
+                color: white;
+                padding: 10px;
+                position: absolute;
+                bottom: 0;
+                width: 200%;
+                height: 100%;
+                z-index: 10;
+                transform: translate(57%, 0%) scale(1.1);
+            }
+
+            .movie-info > div{
+                margin-bottom: 14px;
+            }
+
+            /* Display movie info on hover */
+            .swiper-slide:hover .movie-info {
+                display: block;
+            }
+
+            /* Container for movie list */
+            .movie-list {
+                gap: 20px;
+                padding: 0 10px;
+                overflow: visible;
+                position: relative;
+            }
+
+            /* Swiper Navigation Buttons */
+            .swiper-button-next, .swiper-button-prev {
+                color: white;
+            }
+
+            /* Movie Section Titles */
+            .movies h2,
+            .movies h3 {
+                font-weight: 700;
+            }
+
+            /* Gradient effects for the sides of the movie section */
+            .movies::before,
+            .movies::after {
+                content: '';
+                position: absolute;
+                top: 0;
+                width: 140px;
+                height: 100%;
+                background: linear-gradient(to right, rgba(0, 0, 0, 0.5), transparent);
+                z-index: 2;
+                pointer-events: none;
+            }
+
+            .movies::before {
+                left: 0;
+            }
+
+            .movies::after {
+                right: 0;
+                background: linear-gradient(to left, rgba(0, 0, 0, 0.5), transparent);
+            }
+
+            /* Navbar Styles */
+            .navbar {
+                background-color: #333;
+                position: sticky;
+                top: 0;
+                z-index: 99;
+            }
+
+            .navbar a {
+                color: white;
+            }
+
+            .navbar-toggler-icon {
+                color: white;
+            }
+
+            .navbar-toggler {
+                border-color: #ffffff;
+            }
+
+            /* Footer Styles */
+            .footer {
+                background-color: #333;
+                color: white;
+                padding: 20px;
+                text-align: center;
+            }
+
+            /* Hero Content (Positioning on top of the hero image) */
+            .hero-content {
+                position: relative;
+                z-index: 3;
+                transform: translate(0, 150%);
+            }
+
+            /* Hero Info Links (Play and Info buttons) */
+            .hero-info {
+                display: flex;
+                flex-direction: row;
+                gap: 20px;
+            }
+
+            .hero-info > a {
+                display: flex;
+                flex-direction: row;
+                color: #000000;
+                text-decoration: none;
+                background-color: #ffffff;
+                padding: 15px 30px 14px;
+                border-radius: 15px;
+                width: fit-content;
+                align-items: center;
+                gap: 8px;
+            }
+
+            .hero-info > a:hover {
+                background-color: #d1d1d1;
+            }
+
+            .hero-info > a > svg {
+                transform: scale(2.5);
+            }
+
+            .hero-info > a > p {
+                margin: 0;
+                font-size: 20px;
+                font-weight: 500;
+            }
+
+            /* Media Queries */
+            /* Mobile screens: Smaller font for movie info */
+            @media screen and (max-width: 992px) {
+                .movie-info > div {
+                    font-size: 14px;
+                }
+            }
+
+            /* Tablet and smaller screens: Scale down the image on hover */
+            @media screen and (max-width: 768px) {
+                .swiper-slide:hover img {
+                    transform: scale(1.05);
+                }
+
+                /* Movie Info on smaller screens */
+                .swiper-slide .movie-info {
+                    display: none;
+                    background-color: rgba(0, 0, 0, 0.8);
+                    color: white;
+                    padding: 10px;
+                    position: absolute;
+                    bottom: 0;
+                    width: 100%;
+                    height: max-content;
+                    z-index: 10;
+                    transform: translate(0%, 0%) scale(1.05);
+                }
+
+                /* Movie List Flexbox (to center items) */
+                .movie-list {
+                    gap: 20px;
+                    padding: 0 10px;
+                    overflow: visible;
+                    position: relative;
+                    display: flex;
+                    justify-content: center;
+                }
+
+                .swiper-wrapper {
+                    display: flex;
+                    justify-content: center;
+                }
+
+                .swiper-slide {
+                    display: inline-block;
+                    position: relative;
+                    width: 200px;
+                    overflow: visible;
+                    cursor: pointer;
+                    text-align: center;
+                }
+
+                /* Hero Content Positioning */
+                .hero-content {
+                    position: relative;
+                    z-index: 3;
+                    transform: translate(0, 100%);
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">My Favorite Movies</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <section class="hero-banner">
+            <div class="overlay"></div>
+            <div class="container hero-content">
+                <h1 class="title">My Favorite Movies</h1>
+                <div class="hero-info">
+                    <a href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path d="M15 12.3301L9 16.6603L9 8L15 12.3301Z" fill="#000000"/>
+                        </svg>
+                        <p>Play</p>
+                    </a>
+                    <a class="info" href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" viewBox="0 0 24 24">
+                            <circle cx="12" cy="12" data-name="--Circle" fill="none" id="_--Circle" r="10" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+                            <line fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" x1="12" x2="12" y1="12" y2="16"/>
+                            <line fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" x1="12" x2="12" y1="8" y2="8"/>
+                        </svg>
+                        <p>Info</p>
+                    </a>
+
+                    
+                </div>
+            </div>
+        </section>
+        <section class="movies">
+            <h2 class="container" style="margin-bottom: 30px;">Trending Now</h2>
+            <div class="swiper movie-list">
+                <div id="movie-list" class="container swiper-wrapper">
+                </div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </section>
+        <footer class="footer">
+            <p>&copy; 2025 My Favorite Movies. All rights reserved.</p>
+        </footer>
+    </body>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
         const xmlData = `
-        <movies>
+       <movies>
             <movie>
                 <title>Your Name</title>
                 <year>2016</year>
@@ -122,7 +380,7 @@
                 <genre>Animation, Drama, History</genre>
                 <director>Hayao Miyazaki</director>
                 <summary>The story of Jiro Horikoshi, the man who designed Japanese fighter planes during World War II, and his struggles with love and the consequences of war.</summary>
-                <poster>https://media.themoviedb.org/t/p/w300_and_h450_bestv2/rl3Y1jA0KdpDcz6SCiN6qP8REYF.jpg</poster>
+                <poster>https://image.tmdb.org/t/p/w600_and_h900_bestv2/jfwSexzlIzaOgxP9A8bTA6t8YYb.jpg</poster>
             </movie>
             <movie>
                 <title>Princess Mononoke</title>
@@ -130,15 +388,15 @@
                 <genre>Animation, Fantasy, Drama</genre>
                 <director>Hayao Miyazaki</director>
                 <summary>A young man, Ashitaka, becomes involved in the struggle between the industrial revolution and nature, as he tries to find a cure for a curse placed upon him by a boar demon.</summary>
-                <poster>https://media.themoviedb.org/t/p/w300_and_h450_bestv2/3jFjwaCl05iyXzUvh0Xrs7HDn1O.jpg</poster>
+                <poster>https://image.tmdb.org/t/p/w600_and_h900_bestv2/cMYCDADoLKLbB83g4WnJegaZimC.jpg</poster>
             </movie>
             <movie>
-                <title>Akira</title>
-                <year>1988</year>
-                <genre>Animation, Science Fiction, Action</genre>
-                <director>Katsuhiro Otomo</director>
-                <summary>In a dystopian future, a teenager with psychic powers escapes from a government lab and fights to control his powers while battling a violent uprising in Tokyo.</summary>
-                <poster>https://media.themoviedb.org/t/p/w300_and_h450_bestv2/57M0mL7Gjt06lvYmYmvz4Rm8Cjt.jpg</poster>
+                <title>Weathering with You</title>
+                <year>2019</year>
+                <genre>Animation, Drama, Fantasy, Romance</genre>
+                <director>Makoto Shinkai</director>
+                <summary>The summer of his high school freshman year, Hodaka runs away from his remote island home to Tokyo, and quickly finds himself pushed to his financial and personal limits. The weather is unusually gloomy and rainy every day, as if taking its cue from his life. After many days of solitude, he finally finds work as a freelance writer for a mysterious occult magazine. Then, one day, Hodaka meets Hina on a busy street corner. This bright and strong-willed girl possesses a strange and wonderful ability: the power to stop the rain and clear the sky.</summary>
+                <poster>https://image.tmdb.org/t/p/w600_and_h900_bestv2/qgrk7r1fV4IjuoeiGS5HOhXNdLJ.jpg</poster>
             </movie>
             <movie>
                 <title>Ghost in the Shell</title>
@@ -146,7 +404,7 @@
                 <genre>Animation, Action, Science Fiction</genre>
                 <director>Mamoru Oshii</director>
                 <summary>A cybernetically-enhanced special agent hunts a mysterious hacker known as the Puppet Master in a futuristic, high-tech world.</summary>
-                <poster>https://media.themoviedb.org/t/p/w300_and_h450_bestv2/r44S2e7fpJvFkIKZmijL2iIBgEX.jpg</poster>
+                <poster>https://image.tmdb.org/t/p/w600_and_h900_bestv2/9gC88zYUBARRSThcG93MvW14sqx.jpg</poster>
             </movie>
             <movie>
                 <title>Perfect Blue</title>
@@ -154,48 +412,67 @@
                 <genre>Animation, Thriller, Mystery</genre>
                 <director>Satoshi Kon</director>
                 <summary>A pop idol-turned-actress begins to lose her grip on reality as she is stalked by an obsessed fan and begins to suspect that someone is impersonating her.</summary>
-                <poster>https://media.themoviedb.org/t/p/w300_and_h450_bestv2/1iQ0OZ0VOoZshO5l9AS7YcZ1eOe.jpg</poster>
+                <poster>https://image.tmdb.org/t/p/w600_and_h900_bestv2/6WTiOCfDPP8XV4jqfloiVWf7KHq.jpg</poster>
             </movie>
         </movies>
         `;
 
         function parseXMLData(xmlString) {
-            const parser = new DOMParser();
-            const xmlDoc = parser.parseFromString(xmlString, "text/xml");
-
+            const xmlDoc = new DOMParser().parseFromString(xmlString, "text/xml");
             const movies = xmlDoc.getElementsByTagName("movie");
+            const movieListContainer = document.getElementById("movie-list");
 
-            const tableBody = document.getElementById("movieTable").getElementsByTagName("tbody")[0];
+            Array.from(movies).forEach(movie => {
+                const title = movie.getElementsByTagName("title")[0].textContent;
+                const year = movie.getElementsByTagName("year")[0].textContent;
+                const genre = movie.getElementsByTagName("genre")[0].textContent;
+                const director = movie.getElementsByTagName("director")[0].textContent;
+                const summary = movie.getElementsByTagName("summary")[0].textContent;
+                const poster = movie.getElementsByTagName("poster")[0].textContent;
 
-            for (let i = 0; i < movies.length; i++) {
-                const title = movies[i].getElementsByTagName("title")[0].textContent;
-                const year = movies[i].getElementsByTagName("year")[0].textContent;
-                const genre = movies[i].getElementsByTagName("genre")[0].textContent;
-                const director = movies[i].getElementsByTagName("director")[0].textContent;
-                const summary = movies[i].getElementsByTagName("summary")[0].textContent;
-                const poster = movies[i].getElementsByTagName("poster")[0].textContent;
+                const movieColumn = document.createElement("div");
+                movieColumn.classList.add("swiper-slide");
 
-                const row = document.createElement("tr");
-                row.classList.add("movie-column");
-
-                row.innerHTML = `
-                    <td><img class="movie-poster" src="${poster}" alt="${title} Poster"></td>
-                    <td class="movie-title">${title}</td>
-                    <td class="movie-info">
-                        <div class="movie-title">${title}</div>
-                        <div class="movie-year">${year}</div>
-                        <div class="movie-genre"><span style="font-weight: 700;">Genre:</span> ${genre}</div>
-                        <div class="movie-director"><span style="font-weight: 700;">Director:</span> ${director}</div>
-                        <div class="movie-details">${summary}</div>
-                    </td>
+                movieColumn.innerHTML = `
+                    <img class="movie-poster" src="${poster}" alt="${title} Poster">
+                    <div class="movie-info">
+                        <h3>${title}</h3>
+                        <div><strong>Year:</strong> ${year}</div>
+                        <div><strong>Genre:</strong> ${genre}</div>
+                        <div><strong>Director:</strong> ${director}</div>
+                        <div><strong>Summary:</strong> ${summary}</div>
+                    </div>
                 `;
 
-                tableBody.appendChild(row);
-            }
+                movieListContainer.appendChild(movieColumn);
+            });
         }
 
         parseXMLData(xmlData);
     </script>
-
-</body>
+    <script>
+        var swiper = new Swiper(".movie-list", {
+          slidesPerView: 1,
+          spaceBetween: 0,
+          loop: true,
+           autoplay: {
+            delay: 5000,
+            disableOnInteraction: false,
+        }, 
+          navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+        breakpoints: {
+            768: {
+                slidesPerView: 4,
+                spaceBetween: 30,
+            },
+            992: {
+                slidesPerView: 6,
+                spaceBetween: 30,
+            },
+        },
+        });
+    </script>
 </html>

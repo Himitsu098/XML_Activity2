@@ -53,7 +53,7 @@
         <genre>Animation, Drama, History</genre>
         <director>Hayao Miyazaki</director>
         <summary>The story of Jiro Horikoshi, the man who designed Japanese fighter planes during World War II, and his struggles with love and the consequences of war.</summary>
-        <poster>https://media.themoviedb.org/t/p/w300_and_h450_bestv2/rl3Y1jA0KdpDcz6SCiN6qP8REYF.jpg</poster>
+        <poster>https://image.tmdb.org/t/p/w600_and_h900_bestv2/jfwSexzlIzaOgxP9A8bTA6t8YYb.jpg</poster>
     </movie>
     <movie>
         <title>Princess Mononoke</title>
@@ -61,15 +61,15 @@
         <genre>Animation, Fantasy, Drama</genre>
         <director>Hayao Miyazaki</director>
         <summary>A young man, Ashitaka, becomes involved in the struggle between the industrial revolution and nature, as he tries to find a cure for a curse placed upon him by a boar demon.</summary>
-        <poster>https://media.themoviedb.org/t/p/w300_and_h450_bestv2/3jFjwaCl05iyXzUvh0Xrs7HDn1O.jpg</poster>
+        <poster>https://image.tmdb.org/t/p/w600_and_h900_bestv2/cMYCDADoLKLbB83g4WnJegaZimC.jpg</poster>
     </movie>
     <movie>
-        <title>Akira</title>
-        <year>1988</year>
-        <genre>Animation, Science Fiction, Action</genre>
-        <director>Katsuhiro Otomo</director>
-        <summary>In a dystopian future, a teenager with psychic powers escapes from a government lab and fights to control his powers while battling a violent uprising in Tokyo.</summary>
-        <poster>https://media.themoviedb.org/t/p/w300_and_h450_bestv2/57M0mL7Gjt06lvYmYmvz4Rm8Cjt.jpg</poster>
+        <title>Weathering with You</title>
+        <year>2019</year>
+        <genre>Animation, Drama, Fantasy, Romance</genre>
+        <director>Makoto Shinkai</director>
+        <summary>The summer of his high school freshman year, Hodaka runs away from his remote island home to Tokyo, and quickly finds himself pushed to his financial and personal limits. The weather is unusually gloomy and rainy every day, as if taking its cue from his life. After many days of solitude, he finally finds work as a freelance writer for a mysterious occult magazine. Then, one day, Hodaka meets Hina on a busy street corner. This bright and strong-willed girl possesses a strange and wonderful ability: the power to stop the rain and clear the sky.</summary>
+        <poster>https://image.tmdb.org/t/p/w600_and_h900_bestv2/qgrk7r1fV4IjuoeiGS5HOhXNdLJ.jpg</poster>
     </movie>
     <movie>
         <title>Ghost in the Shell</title>
@@ -77,7 +77,7 @@
         <genre>Animation, Action, Science Fiction</genre>
         <director>Mamoru Oshii</director>
         <summary>A cybernetically-enhanced special agent hunts a mysterious hacker known as the Puppet Master in a futuristic, high-tech world.</summary>
-        <poster>https://media.themoviedb.org/t/p/w300_and_h450_bestv2/r44S2e7fpJvFkIKZmijL2iIBgEX.jpg</poster>
+        <poster>https://image.tmdb.org/t/p/w600_and_h900_bestv2/9gC88zYUBARRSThcG93MvW14sqx.jpg</poster>
     </movie>
     <movie>
         <title>Perfect Blue</title>
@@ -85,6 +85,6 @@
         <genre>Animation, Thriller, Mystery</genre>
         <director>Satoshi Kon</director>
         <summary>A pop idol-turned-actress begins to lose her grip on reality as she is stalked by an obsessed fan and begins to suspect that someone is impersonating her.</summary>
-        <poster>https://media.themoviedb.org/t/p/w300_and_h450_bestv2/1iQ0OZ0VOoZshO5l9AS7YcZ1eOe.jpg</poster>
+        <poster>https://image.tmdb.org/t/p/w600_and_h900_bestv2/6WTiOCfDPP8XV4jqfloiVWf7KHq.jpg</poster>
     </movie>
 </movies>
